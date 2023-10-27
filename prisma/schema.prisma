@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = "mongodb://root:password@127.0.0.1:27018/nist-demo?authSource=admin&directConnection=true"
+}
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  email String @unique
+  password String
+  hint String
+  answer String
+  locked Boolean @default(false)
+  lockedAt DateTime?
+}
+
+model Logs {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  email String
+  ip String
+  type String
+  success Boolean
+  createdAt DateTime @default(now())
+}
